@@ -17,7 +17,7 @@ struct DestinationListingView: View {
         List {
             ForEach(destinations) { destination in
                 NavigationLink(value: destination) {
-                    VStack {
+                    VStack(alignment: .leading) {
                         Text(destination.name)
                             .font(.headline)
 
@@ -29,6 +29,10 @@ struct DestinationListingView: View {
         }
     }
 
+    init(sort: SortDescriptor<Destination>) {
+        _destinations = Query(sort: [sort])
+    }
+
     func deleteDestinations(_ indexSet: IndexSet) {
         for index in indexSet {
             let destination = destinations[index]
@@ -38,5 +42,5 @@ struct DestinationListingView: View {
 }
 
 #Preview {
-    DestinationListingView()
+    DestinationListingView(sort: SortDescriptor(\Destination.name))
 }
