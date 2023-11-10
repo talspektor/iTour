@@ -18,26 +18,26 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $path) {
             DestinationListingView(sort: sortOrder, searchString: searchText)
-            .navigationTitle("iTour")
-            .navigationDestination(for: Destination.self, destination: EditDestinationView.init)
-            .searchable(text: $searchText)
-            .toolbar {
-                Button("Add Destination", systemImage: "plus", action: addDestination)
+                .navigationTitle("iTour")
+                .navigationDestination(for: Destination.self, destination: EditDestinationView.init)
+                .searchable(text: $searchText)
+                .toolbar {
+                    Button("Add Destination", systemImage: "plus", action: addDestination)
 
-                Menu("Sort", systemImage: "arrow,up.arrow.down") {
-                    Picker("Sort", selection: $sortOrder) {
-                        Text("Name")
-                            .tag(SortDescriptor(\Destination.name))
+                    Menu("Sort", systemImage: "arrow,up.arrow.down") {
+                        Picker("Sort", selection: $sortOrder) {
+                            Text("Name")
+                                .tag(SortDescriptor(\Destination.name))
 
-                        Text("Priority")
-                            .tag(SortDescriptor(\Destination.priority, order: .reverse))
+                            Text("Priority")
+                                .tag(SortDescriptor(\Destination.priority, order: .reverse))
 
-                        Text("Date")
-                            .tag(SortDescriptor(\Destination.date))
+                            Text("Date")
+                                .tag(SortDescriptor(\Destination.date))
+                        }
+                        .pickerStyle(.inline)
                     }
-                    .pickerStyle(.inline)
                 }
-            }
         }
 
     }
