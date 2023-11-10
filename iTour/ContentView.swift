@@ -16,11 +16,14 @@ struct ContentView: View {
         NavigationStack {
             List {
                 ForEach(destinations) { destination in
-                    Text(destination.name)
-                        .font(.headline)
+                    VStack {
+                        Text(destination.name)
+                            .font(.headline)
+                    }
 
                     Text(destination.date.formatted(date: .long, time: .shortened))
                 }
+                .onDelete(perform: deleteDestinations)
             }
             .navigationTitle("iTour")
             .toolbar {
@@ -38,6 +41,13 @@ struct ContentView: View {
         modelContext.insert(rome)
         modelContext.insert(florence)
         modelContext.insert(naples)
+    }
+
+    func deleteDestinations(_ indexSet: IndexSet) {
+        for index in indexSet {
+            let destination = destinations[index]
+            modelContext.delete(destination)
+        }
     }
 }
 
